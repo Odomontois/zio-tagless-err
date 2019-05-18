@@ -14,10 +14,9 @@ object ValidationApp extends App {
       .const("succeded")
       .catchAll(c =>
         ZIO.succeed(c.continue(new LoginErr[String] with PasswordErr[String] {
-          def tooLong(maxLength: Int): String = s"login should not be logner than $maxLength"
-          def badFormat: String               = s"login is uncacceptable"
-          def tooShort(required: Int): String = "password is too short"
-
+          def tooLong(maxLength: Int): String       = s"login should not be longer than $maxLength"
+          def badFormat: String                     = s"login is unacceptable"
+          def tooShort(required: Int): String       = s"password is too short, required: $required"
           def doesNotContain(chars: String): String = s"password should contain one $chars"
         })))
 
